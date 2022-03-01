@@ -7,3 +7,6 @@ A simple, customizeable Discord bot which tracks the useage of a customizeable l
 - Integrate MongoDB to separate word counts between servers.
 - Add total count global word count to activity status.
 - Create categories of words which count individually, and have their own defineable word lists. 
+- Limit Check command to customizable amount of entries.
+- Leaderboard command to display top 10 and link to simple webpage displaying leaderboard.
+- Count command to show the user's amount.
