@@ -454,4 +454,5 @@ $RECYCLE.BIN/
 !.vscode/extensions.json
 
 ## Project Specific
-Words.json
+words.json
+config.json

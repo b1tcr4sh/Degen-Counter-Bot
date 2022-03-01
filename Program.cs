@@ -11,8 +11,8 @@ namespace ReplyBot
 
             await bot.init();
         }
-        public static string[]? LoadWords() {
-            string rawJson = File.ReadAllText("./words.json");
+        public static string[]? LoadWords(string @fileName) {
+            string rawJson = File.ReadAllText(fileName);
 
             string[]? words = JsonSerializer.Deserialize<string[]>(rawJson);
             return words;

@@ -4,21 +4,29 @@ using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
 using DSharpPlus.CommandsNext;
 using ReplyBot.Commands;
-using System.Collections.Generic;
+using ReplyBot.Config;
 
 namespace ReplyBot
 {
     public class Bot {
         public static List<User> Users = new List<User>();
-        private string[]? WordsList = Program.LoadWords();
-        private DiscordClient client = new DiscordClient(new DiscordConfiguration() 
-        {
-            Token = "OTQ4MDY0NDIyOTUyMzA0Njkw.Yh2XzA.WDMMU-ukL_zQ-u7Oy6h8pvXJdHI", 
-            MinimumLogLevel = Microsoft.Extensions.Logging.LogLevel.Debug,
-            TokenType = TokenType.Bot,
-            Intents = DiscordIntents.AllUnprivileged
-        });
+        private string[]? WordsList;
+        public ConfigFile config { get; private set; }
+        private DiscordClient? client;
         public async Task init() {
+            ConfigManager manager = new ConfigManager("config.json");
+            config = manager.config;
+
+            WordsList = Program.LoadWords(config.Word_List_File_Name);
+
+            client = new DiscordClient(new DiscordConfiguration() 
+            {
+                Token = config.Token, 
+                MinimumLogLevel = Microsoft.Extensions.Logging.LogLevel.Debug,
+                TokenType = TokenType.Bot,
+                Intents = DiscordIntents.AllUnprivileged
+            });
+
             CommandsNextConfiguration commandsConfig = new CommandsNextConfiguration() {
                 CaseSensitive = false,
                 EnableDms = false,
