@@ -7,13 +7,21 @@ using DSharpPlus.CommandsNext.Attributes;
 
 namespace ReplyBot.Commands {
     public class CounterCheck : BaseCommandModule {
-        [Command("Check")]
+        [Command("check")]
+        [Aliases(new string[] { "count", "top", "leaderboard" })]
+        [Description("Returns a list of the top 10 users on the leaderboard.")]
         public async Task CheckCounters(CommandContext context) {
             DiscordEmbedBuilder embedBuilder = new DiscordEmbedBuilder();
 
+            
+
             embedBuilder.Title = "Bitch Counters";
             foreach (User user in Bot.Users) {
-                if (user.BitchCount != 0)
+                DiscordUser? DiscordUser = Bot.DiscordUsers.Find(x => {
+                    return x.Username == user.Name;
+                });
+
+                if (user.BitchCount != 0 || DiscordUser.IsBot == false)
                     embedBuilder.AddField(user.Name, user.BitchCount.ToString(), true);
             }
 

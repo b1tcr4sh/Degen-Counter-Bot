@@ -10,6 +10,7 @@ namespace ReplyBot
 {
     public class Bot {
         public static List<User> Users = new List<User>();
+        public static List<DiscordUser> DiscordUsers = new List<DiscordUser>();
         private string[]? WordsList;
         public ConfigFile config { get; private set; }
         private DiscordClient? client;
@@ -44,7 +45,7 @@ namespace ReplyBot
             await Task.Delay(-1);
         }
         public async Task CollectUsers(object sender, GuildDownloadCompletedEventArgs e) {
-            await client.UpdateStatusAsync(new DiscordActivity("naught words | b!", ActivityType.ListeningTo), UserStatus.Online);
+            await client.UpdateStatusAsync(new DiscordActivity("naughty words | b!", ActivityType.ListeningTo), UserStatus.Online);
 
 
             IReadOnlyDictionary<ulong, DiscordGuild> guilds = client.Guilds;
@@ -52,6 +53,7 @@ namespace ReplyBot
             foreach (KeyValuePair<ulong, DiscordGuild> guild in guilds) {
                 foreach (DiscordMember user in await guild.Value.GetAllMembersAsync()) {
                     Users.Add(new User { Name = user.Username, BitchCount = 0});
+                    DiscordUsers.Add(user);
                 }
             }
         }
