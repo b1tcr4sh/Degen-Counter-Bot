@@ -39,7 +39,8 @@ namespace ReplyBot.Commands {
             }
             DiscordEmbed embed = embedBuilder.Build();
 
-            await context.Channel.SendMessageAsync(embed);           
+            await context.Channel.SendMessageAsync(embed);  
+            Bot.listReset = false;         
         }
     }
 }
