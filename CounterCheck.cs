@@ -29,9 +29,13 @@ namespace ReplyBot.Commands {
                     embedBuilder.AddField(user.Name, user.BitchCount.ToString());
             }
 
+            if (Bot.listReset) {
+                embedBuilder.AddField("Notice:", "The bot has restarted recently, and the list is reset.");
+            }
+
             if (embedBuilder.Fields.Count == 0) {
                 embedBuilder.Color = DiscordColor.Red;
-                embedBuilder.WithFooter("Nobody has said any naughy words yet.");
+                embedBuilder.AddField("Nobody has said any naughy words yet.", String.Empty);
             }
             DiscordEmbed embed = embedBuilder.Build();
 
