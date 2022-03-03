@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using System.Linq;
 using DSharpPlus.Entities;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
@@ -13,16 +14,19 @@ namespace ReplyBot.Commands {
         public async Task CheckCounters(CommandContext context) {
             DiscordEmbedBuilder embedBuilder = new DiscordEmbedBuilder();
 
-            
+            List<User> users = Bot.Users;
+            List<User> orderedUsers = users.OrderBy(element => element.BitchCount).ToList<User>();
+            orderedUsers.Reverse();
 
             embedBuilder.Title = "Bitch Counters";
-            foreach (User user in Bot.Users) {
+            foreach (User user in orderedUsers) {
                 DiscordUser? DiscordUser = Bot.DiscordUsers.Find(x => {
                     return x.Username == user.Name;
                 });
 
-                if (user.BitchCount != 0 || DiscordUser.IsBot == false)
-                    embedBuilder.AddField(user.Name, user.BitchCount.ToString(), true);
+                if (user.BitchCount != 0 && DiscordUser.IsBot == false && embedBuilder.Fields.Count() <= 10)
+                    
+                    embedBuilder.AddField(user.Name, user.BitchCount.ToString());
             }
 
             if (embedBuilder.Fields.Count == 0) {
