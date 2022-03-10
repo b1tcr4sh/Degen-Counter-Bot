@@ -19,6 +19,8 @@ namespace ReplyBot.Commands {
             orderedUsers.Reverse();
 
             embedBuilder.Title = "Bitch Counters";
+            embedBuilder.WithFooter($"{Bot.DateTimestamp.ToShortTimeString} {Bot.DateTimestamp.Date.ToShortDateString()}");
+
             foreach (User user in orderedUsers) {
                 DiscordUser? DiscordUser = Bot.DiscordUsers.Find(x => {
                     return x.Username == user.Name;

@@ -15,6 +15,7 @@ namespace ReplyBot
         public ConfigFile config { get; private set; }
         private DiscordClient? client;
         public static bool listReset = true;
+        public static DateTime DateTimestamp;
         public async Task init() {
             ConfigManager manager = new ConfigManager("config.json");
             config = manager.config;
@@ -42,6 +43,8 @@ namespace ReplyBot
             client.GuildDownloadCompleted += CollectUsers;
 
             await client.ConnectAsync();
+
+            DateTimestamp = DateTime.Now;
 
             await Task.Delay(-1);
         }
