@@ -24,7 +24,10 @@ namespace ReplyBot.Commands {
                     return x.Username == user.Name;
                 });
 
-                if (user.BitchCount != 0 && DiscordUser.IsBot == false && embedBuilder.Fields.Count() <= 10)
+                if (DiscordUser == null) {
+                    orderedUsers.Remove(user);
+                    Console.WriteLine("Found a user list mismatch?");
+                } else if (user.BitchCount != 0 && DiscordUser.IsBot == false && embedBuilder.Fields.Count() <= 10)
                     
                     embedBuilder.AddField(user.Name, user.BitchCount.ToString());
             }

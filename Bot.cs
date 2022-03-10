@@ -46,7 +46,10 @@ namespace ReplyBot
             await Task.Delay(-1);
         }
         public async Task CollectUsers(object sender, GuildDownloadCompletedEventArgs e) {
+            if (client == null) return;
+
             await client.UpdateStatusAsync(new DiscordActivity("naughty words | b!", ActivityType.ListeningTo), UserStatus.Online);
+
 
 
             IReadOnlyDictionary<ulong, DiscordGuild> guilds = client.Guilds;
@@ -59,6 +62,10 @@ namespace ReplyBot
             }
         }
         private async Task CheckMessageContents(object sender, MessageCreateEventArgs e) {
+            if (WordsList == null) {
+                Console.WriteLine("Was unable to load words file."); 
+                return;
+            } 
             foreach (string? word in WordsList) {
                 if (e.Message.Content.ToLower().Contains(word)) {
                     User? userToIterate = Users.Find((x) => {
