@@ -77,7 +77,7 @@ namespace ReplyBot
                         } else return false;
                     });
 
-                    if (userToIterate != null) {
+                    if (userToIterate is not null) {
                         userToIterate.BitchCount += 1;
                     } else await e.Message.RespondAsync($"User {e.Author.Username} not found.");
                 }   
